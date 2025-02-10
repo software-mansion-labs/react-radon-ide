@@ -11,6 +11,10 @@ import type {Fiber} from 'react-reconciler/src/ReactInternalTypes';
 import type {TouchedViewDataAtPoint, InspectorData} from './ReactNativeTypes';
 
 import {
+  enableSourceInspection
+} from 'shared/ReactFeatureFlags';
+
+import {
   findCurrentHostFiber,
   findCurrentFiberUsingSlowPath,
 } from 'react-reconciler/src/ReactFiberTreeReflection';
@@ -35,11 +39,11 @@ if (__DEV__) {
 }
 
 // $FlowFixMe[missing-local-annot]
-function createHierarchy(fiberHierarchy) {
+const createHierarchy = function (fiberHierarchy) {
   return fiberHierarchy.map(fiber => ({
     name: getComponentNameFromType(fiber.type),
     getInspectorData: () => {
-      return {
+      const inspectData = {
         props: getHostProps(fiber),
         measure: callback => {
           // If this is Fabric, we'll find a shadow node and use that to measure.
@@ -56,9 +60,11 @@ function createHierarchy(fiberHierarchy) {
           }
         },
       };
+      enableSourceInspection && (inspectData.source = fiber._source);
+      return inspectData;
     },
   }));
-}
+};
 
 function getHostNode(fiber: Fiber | null) {
   if (__DEV__ || enableGetInspectorDataForInstanceInProduction) {

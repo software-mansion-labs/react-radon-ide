@@ -38,6 +38,7 @@ import {
   disableLegacyMode,
   enableObjectFiber,
   enableOwnerStacks,
+  enableSourceInspection,
 } from 'shared/ReactFeatureFlags';
 import {NoFlags, Placement, StaticMask} from './ReactFiberFlags';
 import {ConcurrentRoot} from './ReactRootTags';
@@ -198,6 +199,9 @@ function FiberNode(
     // This isn't directly used but is handy for debugging internals:
     this._debugInfo = null;
     this._debugOwner = null;
+    if (enableSourceInspection){
+      this._source = null;
+    }
     if (enableOwnerStacks) {
       this._debugStack = null;
       this._debugTask = null;
@@ -289,6 +293,9 @@ function createFiberImplObject(
     // This isn't directly used but is handy for debugging internals:
     fiber._debugInfo = null;
     fiber._debugOwner = null;
+    if (enableSourceInspection){
+      fiber._source = null;
+    }
     if (enableOwnerStacks) {
       fiber._debugStack = null;
       fiber._debugTask = null;
@@ -348,6 +355,9 @@ export function createWorkInProgress(current: Fiber, pendingProps: any): Fiber {
       // DEV-only fields
 
       workInProgress._debugOwner = current._debugOwner;
+      if (enableSourceInspection) {
+        workInProgress._source = current._source;
+      }
       if (enableOwnerStacks) {
         workInProgress._debugStack = current._debugStack;
         workInProgress._debugTask = current._debugTask;
@@ -764,6 +774,9 @@ export function createFiberFromElement(
   );
   if (__DEV__) {
     fiber._debugOwner = element._owner;
+    if (enableSourceInspection) {
+      fiber._source = element._source;
+    }
     if (enableOwnerStacks) {
       fiber._debugStack = element._debugStack;
       fiber._debugTask = element._debugTask;

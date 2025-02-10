@@ -143,6 +143,8 @@ export const enablePersistedModeClonedFlag = false;
 
 export const enableOwnerStacks = __EXPERIMENTAL__;
 
+export const enableSourceInspection = true;
+
 export const enableShallowPropDiffing = false;
 
 export const enableSiblingPrerendering = true;

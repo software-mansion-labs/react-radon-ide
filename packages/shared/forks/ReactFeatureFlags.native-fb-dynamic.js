@@ -25,3 +25,7 @@ export const enableShallowPropDiffing = __VARIANT__;
 export const passChildrenWhenCloningPersistedNodes = __VARIANT__;
 export const enableFabricCompleteRootInCommitPhase = __VARIANT__;
 export const enableSiblingPrerendering = __VARIANT__;
+export const enableUseResourceEffectHook = __VARIANT__;
+export const enableOwnerStacks = __VARIANT__;
+export const enableSourceInspection = true;
+export const enableRemoveConsolePatches = __VARIANT__;

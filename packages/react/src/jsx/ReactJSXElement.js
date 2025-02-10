@@ -22,6 +22,7 @@ import {describeUnknownElementTypeFrameInDEV} from 'shared/ReactComponentStackFr
 import {
   disableDefaultPropsExceptForClasses,
   enableOwnerStacks,
+  enableSourceInspection,
 } from 'shared/ReactFeatureFlags';
 
 const REACT_CLIENT_REFERENCE = Symbol.for('react.client.reference');
@@ -261,6 +262,14 @@ function ReactElement(
       writable: true,
       value: null,
     });
+    if (enableSourceInspection) {
+      Object.defineProperty(element, '_source', {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value: source,
+      });
+    }
     if (enableOwnerStacks) {
       Object.defineProperty(element, '_debugStack', {
         configurable: false,
