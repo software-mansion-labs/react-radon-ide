@@ -41,6 +41,8 @@ export const {
   enableScrollEndPolyfill,
   enableFragmentRefs,
   ownerStackLimit,
+  enableSourceInspection,
+  enableRemoveConsolePatches,
 } = dynamicFeatureFlags;
 
 // On WWW, __EXPERIMENTAL__ is used for a new modern build.

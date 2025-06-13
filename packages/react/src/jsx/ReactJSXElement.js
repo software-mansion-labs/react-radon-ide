@@ -19,6 +19,7 @@ import isArray from 'shared/isArray';
 import {
   disableDefaultPropsExceptForClasses,
   ownerStackLimit,
+  enableSourceInspection,
 } from 'shared/ReactFeatureFlags';
 
 const createTask =
@@ -276,6 +277,14 @@ function ReactElement(
       writable: true,
       value: null,
     });
+    if (enableSourceInspection) {
+      Object.defineProperty(element, '_source', {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value: source,
+      });
+    }
     Object.defineProperty(element, '_debugStack', {
       configurable: false,
       enumerable: false,

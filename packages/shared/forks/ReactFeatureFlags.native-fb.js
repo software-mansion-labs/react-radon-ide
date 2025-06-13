@@ -32,6 +32,8 @@ export const {
   enableLazyPublicInstanceInFabric,
   renameElementSymbol,
   ownerStackLimit,
+  enableSourceInspection,
+  enableRemoveConsolePatches,
 } = dynamicFlags;
 
 // The rest of the flags are static for better dead code elimination.

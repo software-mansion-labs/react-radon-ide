@@ -72,6 +72,7 @@ export const renameElementSymbol = false;
 
 export const enableObjectFiber = false;
 export const enableShallowPropDiffing = false;
+export const enableSourceInspection = true;
 export const enableSiblingPrerendering = true;
 
 export const enableUseEffectCRUDOverload = false;

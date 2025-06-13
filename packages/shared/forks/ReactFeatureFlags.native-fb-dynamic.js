@@ -29,7 +29,11 @@ export const enableUseEffectCRUDOverload = __VARIANT__;
 export const enableFastAddPropertiesInDiffing = __VARIANT__;
 export const enableLazyPublicInstanceInFabric = __VARIANT__;
 export const renameElementSymbol = __VARIANT__;
-export const ownerStackLimit: number = __VARIANT__
+export const enableUseResourceEffectHook = __VARIANT__;
+export const enableOwnerStacks = __VARIANT__;
+export const enableSourceInspection = true;
+export const enableRemoveConsolePatches = __VARIANT__;
+export const ownerStackLimit = __VARIANT__
   ? // Some value that doesn't impact existing tests
     500
   : 1e4;

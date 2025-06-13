@@ -11,6 +11,10 @@ import type {Fiber} from 'react-reconciler/src/ReactInternalTypes';
 import type {TouchedViewDataAtPoint, InspectorData} from './ReactNativeTypes';
 
 import {
+  enableSourceInspection
+} from 'shared/ReactFeatureFlags';
+
+import {
   findCurrentHostFiber,
   findCurrentFiberUsingSlowPath,
 } from 'react-reconciler/src/ReactFiberTreeReflection';
@@ -40,7 +44,7 @@ if (__DEV__) {
     return fiberHierarchy.map(fiber => ({
       name: getComponentNameFromType(fiber.type),
       getInspectorData: () => {
-        return {
+        const inspectData = {
           props: getHostProps(fiber),
           measure: callback => {
             // If this is Fabric, we'll find a shadow node and use that to measure.
@@ -57,9 +61,11 @@ if (__DEV__) {
             }
           },
         };
-      },
+      enableSourceInspection && (inspectData.source = fiber._source);
+      return inspectData;
+    },
     }));
-  };
+  };;
 
   const getHostNode = function (fiber: Fiber | null) {
     let hostNode;
